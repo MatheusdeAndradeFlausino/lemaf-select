@@ -1,13 +1,16 @@
 <template>
 	<div id='componente' :style="componenteStyle" v-fechar="{exclude: [], handler: 'onClose'}">
 		<div class='select'>
-			<i :class="{'fa-angle-down': !open, 'fa-angle-up': open}" class='fa icon' @click='toggleDropDown()'></i>
+			<i :class="{'fa-angle-down': !open, 'fa-angle-up': open}" class='fa icon' :style='iconStyle' @click='toggleDropDown()'></i>
 			<div :style="inputStyle" @click='toggleDropDown()' class='select-input'>
 				<div v-if='selecionados.length === 0' class='placeholder'>
 					<span>{{placeholder}}</span>
 				</div>
-				<div class='linha-chips'>
-					<span class='selecionado-chips' :key='selecionado.valor' v-for="(selecionado, index) in selecionados">
+				<div v-if='!multiplos && selecionados.length > 0' class='bloco-selecionado-unico'>
+					<span>{{selecionados[0].nome}}</span>
+				</div>
+				<div class='linha-chips' v-if='multiplos'>
+					<span class='selecionado-chips' :key='selecionado.valor' v-for="(selecionado, index) in selecionados" :style='selecionadoChipsStyle'>
 						{{selecionado.nome}}
 						<i class='fa fa-times' @click='removerItem($event, index)'></i>
 					</span>
@@ -20,11 +23,11 @@
 					<i class="fa fa-search icon" ></i>
 					<input type='text' :placeholder='pesquisarPlaceholder' v-model="palavraChavePesquisa" :style="campoPesquisarStyle" @keyup="pesquisar()">
 				</div>
-				<div v-if="selecionarTodos" class='campo-selecionar-todos' :style="campoSelecionarTodosStyle" @click="adicionarTodos()">
+				<div v-if="selecionarTodos && this.multiplos" class='campo-selecionar-todos' :style="campoSelecionarTodosStyle" @click="adicionarTodos()">
 					<span>Selecionar todos ({{opcoesExibidas.length}})</span>
 				</div>
 				<div class='itens' v-if='opcoesExibidas.length > 0'>
-					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="item in opcoesExibidas" :style="itemStyle" @click="selecionar(item)">{{item.nome}}</div>
+					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="item in opcoesExibidas"s @click="selecionar(item)">{{item.nome}}</div>
 				</div>
 				<div class='bloco-adicionar' :class='{"separa-blocos": opcoesExibidas.length > 0}' v-if='permitirNovosItens && palavraChavePesquisa.length > 0'>
 					<span>Gostaria de adicionar o filtro informado?</span><br>
@@ -53,11 +56,13 @@
 			text-align: left;
 			border: 1px solid #ccc;
 			padding: 3px 0;
-			min-height: 37px;
 			height: auto !important;
 
 			.placeholder
 				opacity: 0.5;
+				padding-left: 10px;
+
+			.bloco-selecionado-unico
 				padding-left: 10px;
 
 			.linha-chips
@@ -73,8 +78,6 @@
 					white-space: text-wrap;
 					width: auto;
 					padding: 0 10px;
-					height: 40px;
-					line-height: 40px;
 
 					i
 						color: rgba(0,0,0,0.4);

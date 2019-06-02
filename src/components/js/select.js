@@ -3,12 +3,18 @@ import 'vue-material-design-icons/styles.css'
 let handleOutsideClick
 
 const defaultStyles = {
-	corFundoHoverSelecionado: '#41b883',
-	corFundoHoverNaoSelecionado: 'white',
-	corHoverSelecionado: 'white',
-	corHoverNaoSelecionado: 'white',
 	width: 300
 }
+
+const referenciaAltura = [];
+referenciaAltura['pequena'] = 20;
+referenciaAltura['media'] = 30;
+referenciaAltura['grande'] = 40;
+
+const referenciaAlturaIcone = [];
+referenciaAlturaIcone['pequena'] = 5;
+referenciaAlturaIcone['media'] = 10;
+referenciaAlturaIcone['grande'] = 15;
 
 export default {
 
@@ -76,22 +82,21 @@ export default {
 			},
 			inputStyle: {
 				borderRadius: this.bordaArredondada ?  '20px' : '0',
-				height: this.inputHeightValido(this.styles.inputHeight) + 'px'
+				minHeight: referenciaAltura[this.altura] + 'px',
+				lineHeight: referenciaAltura[this.altura] + 'px'
+			},
+			iconStyle: {
+				top: referenciaAlturaIcone[this.altura] + 'px'
+			},
+			selecionadoChipsStyle: {
+				minHeight: referenciaAltura[this.altura] + 'px',
+				lineHeight: referenciaAltura[this.altura] + 'px'
 			},
 			dropdownStyle: {
 				width: (this.styles.width) + 'px'
 			},
 			campoFiltroStyle: {
-				width: (this.styles.width) + 'px',
-				height: (this.inputHeightValido(this.styles.inputHeight) + 10) + 'px'
-			},
-			campoSelecionarTodosStyle: {
-				height: (this.inputHeightValido(this.styles.inputHeight) + 10) + 'px',
-				lineHeight: (this.inputHeightValido(this.styles.inputHeight) + 10) + 'px'
-			},
-			itemStyle: {
-				height: (this.inputHeightValido(this.styles.inputHeight) + 10) + 'px',
-				lineHeight: (this.inputHeightValido(this.styles.inputHeight) + 10) + 'px'
+				width: (this.styles.width) + 'px'
 			},
 			campoPesquisarStyle: {
 				borderRadius: this.bordaArredondada ?  '20px' : '0'
@@ -173,6 +178,12 @@ export default {
 
 		selecionar(item) {
 
+			if(!this.multiplos) {
+
+				this.selecionados = [];
+
+			}
+
 			if(!this.itemJaSelecionado(item)) {
 
 				this.selecionados.push(item);
@@ -185,9 +196,7 @@ export default {
 
 		adicionarTodos() {
 
-			this.selecionados = [...this.opcoesExibidas];
-
-			this.$emit('modificado', this.selecionados)
+			this.opcoesExibidas.forEach(opcao => this.selecionar(opcao));
 
 		},
 

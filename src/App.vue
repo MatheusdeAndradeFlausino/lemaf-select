@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		<label><b>Teste:</b></label>
 		<lemaf-select @modificado='recebeSelecionados' v-bind="config"></lemaf-select>
 		<hr>
 		<span v-for='selecionado in selecionados' :key='selecionado.valor'>{{selecionado.nome}}</span>
@@ -28,10 +29,12 @@ export default {
 			config: {
 				placeholder: 'Escolha uma opção',
 				pesquisarPlaceholder: 'Pesquisar',
-				filtravel: true,
-				selecionarTodos: true,
+				filtravel: false,
+				selecionarTodos: false,
 				bordaArredondada: true,
 				permitirNovosItens: true,
+				multiplos: true,
+				altura: 'media',
 				opcoes: [
 					{
 						nome: 'Override teste 1',
