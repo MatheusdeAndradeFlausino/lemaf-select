@@ -7,14 +7,19 @@ const defaultStyles = {
 }
 
 const referenciaAltura = [];
-referenciaAltura['pequena'] = 20;
-referenciaAltura['media'] = 30;
-referenciaAltura['grande'] = 40;
+referenciaAltura['pequena'] = 15;
+referenciaAltura['media'] = 25;
+referenciaAltura['grande'] = 35;
 
 const referenciaAlturaIcone = [];
-referenciaAlturaIcone['pequena'] = 5;
-referenciaAlturaIcone['media'] = 10;
-referenciaAlturaIcone['grande'] = 15;
+referenciaAlturaIcone['pequena'] = 3;
+referenciaAlturaIcone['media'] = 6;
+referenciaAlturaIcone['grande'] = 11;
+
+const referenciaAlturaIconePesquisar = [];
+referenciaAlturaIconePesquisar['pequena'] = 8;
+referenciaAlturaIconePesquisar['media'] = 13;
+referenciaAlturaIconePesquisar['grande'] = 18;
 
 export default {
 
@@ -88,6 +93,9 @@ export default {
 			iconStyle: {
 				top: referenciaAlturaIcone[this.altura] + 'px'
 			},
+			iconPesquisarStyle: {
+				top: referenciaAlturaIconePesquisar[this.altura] + 'px'
+			},
 			selecionadoChipsStyle: {
 				minHeight: referenciaAltura[this.altura] + 'px',
 				lineHeight: referenciaAltura[this.altura] + 'px'
@@ -96,10 +104,13 @@ export default {
 				width: (this.styles.width) + 'px'
 			},
 			campoFiltroStyle: {
-				width: (this.styles.width) + 'px'
+				width: (this.styles.width) + 'px',
+				height: (referenciaAltura[this.altura] + 18) + 'px'
 			},
 			campoPesquisarStyle: {
-				borderRadius: this.bordaArredondada ?  '20px' : '0'
+				borderRadius: this.bordaArredondada ?  '20px' : '0',
+				height: referenciaAltura[this.altura] + 'px',
+				lineHeight: referenciaAltura[this.altura] + 'px'
 			},
 			opcoesExibidas: this.opcoes,
 			open: false,

@@ -29,7 +29,7 @@ export default {
 			config: {
 				placeholder: 'Escolha uma opção',
 				pesquisarPlaceholder: 'Pesquisar',
-				filtravel: false,
+				filtravel: true,
 				selecionarTodos: false,
 				bordaArredondada: true,
 				permitirNovosItens: true,
@@ -70,7 +70,7 @@ export default {
 					}
 				],
 				styles: {
-					width: 580
+					width: 400
 				}
 			}
 		}

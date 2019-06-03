@@ -20,7 +20,7 @@
 		<div v-if='open'>
 			<div :style="dropdownStyle" class='dropdown-itens'>
 				<div v-if="filtravel" class='campo-filtro' :style="campoFiltroStyle">
-					<i class="fa fa-search icon" ></i>
+					<i class="fa fa-search icon" :style='iconPesquisarStyle'></i>
 					<input type='text' :placeholder='pesquisarPlaceholder' v-model="palavraChavePesquisa" :style="campoPesquisarStyle" @keyup="pesquisar()">
 				</div>
 				<div v-if="selecionarTodos && this.multiplos" class='campo-selecionar-todos' :style="campoSelecionarTodosStyle" @click="adicionarTodos()">
@@ -174,7 +174,6 @@
 
 		.campo-filtro
 			border-bottom: 1px solid #ccc;
-			height: 50px;
 			position: relative;
 
 			.icon
@@ -182,19 +181,15 @@
 				right: 10px;
 				width: 15px;
 				height: 15px;
-				top: 10px;
 				text-align: center;
 
 			input
 				width: calc(100% - 20px);
 				margin: 5px 0 5px 5px;
-				height: calc(100% - 15px);
 				box-shadow: none;
 				text-align: left;
 				border: 1px solid #ccc;
-				padding-left: 10px;
-				min-height: 20px;
-				max-height: 40px;
+				padding: 3px 0 3px 10px;
 
 				&:focus
 					outline: none;
