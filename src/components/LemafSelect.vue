@@ -27,7 +27,7 @@
 					<span>Selecionar todos ({{opcoesExibidas.length}})</span>
 				</div>
 				<div class='itens' v-if='opcoesExibidas.length > 0'>
-					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="item in opcoesExibidas"s @click="selecionar(item)">{{item.nome}}</div>
+					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="item in opcoesExibidas" @click="selecionar(item)">{{item.nome}}</div>
 				</div>
 				<div class='bloco-adicionar' :class='{"separa-blocos": opcoesExibidas.length > 0}' v-if='permitirNovosItens && palavraChavePesquisa.length > 0'>
 					<span>Gostaria de adicionar o filtro informado?</span><br>

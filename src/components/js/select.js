@@ -31,6 +31,14 @@ export default {
 			type: Object,
 			default: () => defaultStyles
 		},
+		label: {
+			type: String,
+			default: 'nome'
+		},
+		chave: {
+			type: String,
+			default: 'valor'
+		},
 		filtravel: {
 			type: Boolean,
 			default: false
@@ -61,7 +69,7 @@ export default {
 		},
 		placeholder: {
 			type: String,
-			default: null
+			default: 'Selecione'
 		},
 		altura: {
 			type: String,
@@ -112,10 +120,11 @@ export default {
 				height: referenciaAltura[this.altura] + 'px',
 				lineHeight: referenciaAltura[this.altura] + 'px'
 			},
-			opcoesExibidas: this.opcoes,
+			opcoesExibidas: [],
 			open: false,
 			palavraChavePesquisa: '',
-			selecionados: []
+			selecionados: [],
+			opcoesTransformadas: []
 		}
 
 	},
@@ -167,6 +176,23 @@ export default {
 
 	},
 
+	created() {
+
+		this.opcoes.forEach(opcao => {
+
+			let itemTransformado = {
+				nome: opcao[this.label],
+				valor: opcao[this.chave]
+			}
+
+			this.opcoesTransformadas.push(itemTransformado);
+
+		});
+
+		this.opcoesExibidas = this.opcoesTransformadas
+
+	},
+
 	methods: {
 
 		toggleDropDown() {
@@ -183,7 +209,7 @@ export default {
 
 		pesquisar() {
 
-			this.opcoesExibidas = this.opcoes.filter(opcao => opcao.nome.toLowerCase().includes(this.palavraChavePesquisa.toLowerCase()));
+			this.opcoesExibidas = this.opcoesTransformadas.filter(opcao => opcao.valor.toLowerCase().includes(this.palavraChavePesquisa.toLowerCase()));
 
 		},
 
@@ -240,8 +266,10 @@ export default {
 		adicionarNovoItem() {
 
 			let novoItem = {
+
 				nome: this.palavraChavePesquisa,
 				valor: undefined
+
 			}
 
 			this.selecionar(novoItem);

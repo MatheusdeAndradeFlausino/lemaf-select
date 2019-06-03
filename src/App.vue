@@ -29,43 +29,44 @@ export default {
 			config: {
 				placeholder: 'Escolha uma opção',
 				pesquisarPlaceholder: 'Pesquisar',
-				filtravel: true,
+				filtravel: false,
 				selecionarTodos: false,
 				bordaArredondada: true,
-				permitirNovosItens: true,
-				multiplos: true,
+				permitirNovosItens: false,
+				multiplos: false,
 				altura: 'media',
+				label: 'teste',
 				opcoes: [
 					{
-						nome: 'Override teste 1',
+						teste: 'Override teste 1',
 						valor: 1
 					},
 					{
-						nome: 'Override a 2',
+						teste: 'Override a 2',
 						valor: 2
 					},
 					{
-						nome: 'Override 3',
+						teste: 'Override 3',
 						valor: 3
 					},
 					{
-						nome: 'Override so aqui pra aumentar o tamanho do chips4',
+						teste: 'Override so aqui pra aumentar o tamanho do chips4',
 						valor: 4
 					},
 					{
-						nome: 'Override 5',
+						teste: 'Override 5',
 						valor: 5
 					},
 					{
-						nome: 'Override 6',
+						teste: 'Override 6',
 						valor: 6
 					},
 					{
-						nome: 'Override 7',
+						teste: 'Override 7',
 						valor: 7
 					},
 					{
-						nome: 'Override 8',
+						teste: 'Override 8',
 						valor: 8
 					}
 				],
