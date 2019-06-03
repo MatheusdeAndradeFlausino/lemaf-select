@@ -31,6 +31,10 @@ export default {
 			type: Object,
 			default: () => defaultStyles
 		},
+		value: {
+			type: [Object, Array, Number, String],
+			default: undefined
+		},
 		label: {
 			type: String,
 			default: 'nome'
@@ -87,12 +91,37 @@ export default {
 
 	},
 
+	watch: {
+
+		opcoes: {
+
+			deep: true,
+			immediate: true,
+
+			handler: function(novasOpcoes){
+
+				novasOpcoes.forEach(opcao => {
+
+					let itemTransformado = {
+						nome: opcao[this.label],
+						valor: opcao[this.chave]
+					}
+
+					this.opcoesTransformadas.push(itemTransformado);
+
+				});
+
+				this.opcoesExibidas = this.opcoesTransformadas
+
+			}
+
+		}
+
+	},
+
 	data() {
 
 		return {
-			componenteStyle: {
-				width: this.styles.width + 'px'
-			},
 			inputStyle: {
 				borderRadius: this.bordaArredondada ?  '20px' : '0',
 				minHeight: referenciaAltura[this.altura] + 'px',
@@ -108,11 +137,7 @@ export default {
 				minHeight: referenciaAltura[this.altura] + 'px',
 				lineHeight: referenciaAltura[this.altura] + 'px'
 			},
-			dropdownStyle: {
-				width: (this.styles.width) + 'px'
-			},
 			campoFiltroStyle: {
-				width: (this.styles.width) + 'px',
 				height: (referenciaAltura[this.altura] + 18) + 'px'
 			},
 			campoPesquisarStyle: {
@@ -176,23 +201,6 @@ export default {
 
 	},
 
-	created() {
-
-		this.opcoes.forEach(opcao => {
-
-			let itemTransformado = {
-				nome: opcao[this.label],
-				valor: opcao[this.chave]
-			}
-
-			this.opcoesTransformadas.push(itemTransformado);
-
-		});
-
-		this.opcoesExibidas = this.opcoesTransformadas
-
-	},
-
 	methods: {
 
 		toggleDropDown() {
@@ -201,15 +209,9 @@ export default {
 
 		},
 
-		inputHeightValido(inputHeight) {
-
-			return inputHeight ? inputHeight > 40 ? 40 : inputHeight < 20 ? 20 : inputHeight : 30;
-
-		},
-
 		pesquisar() {
 
-			this.opcoesExibidas = this.opcoesTransformadas.filter(opcao => opcao.valor.toLowerCase().includes(this.palavraChavePesquisa.toLowerCase()));
+			this.opcoesExibidas = this.opcoesTransformadas.filter(opcao => opcao.nome.toString().toLowerCase().includes(this.palavraChavePesquisa.toLowerCase()));
 
 		},
 
@@ -218,6 +220,7 @@ export default {
 			if(!this.multiplos) {
 
 				this.selecionados = [];
+				this.open = false;
 
 			}
 
@@ -227,7 +230,21 @@ export default {
 
 			}
 
-			this.$emit('modificado', this.selecionados)
+			this.emitirResultado();
+
+		},
+
+		emitirResultado() {
+
+			if(!this.multiplos) {
+
+				this.$emit('input', this.selecionados[0].valor)
+
+			} else {
+
+				this.$emit('input', this.selecionados.map(selecionado => selecionado.valor));
+
+			}
 
 		},
 
@@ -261,6 +278,8 @@ export default {
 
 			this.selecionados.splice(index, 1);
 
+			this.emitirResultado();
+
 		},
 
 		adicionarNovoItem() {
@@ -268,7 +287,7 @@ export default {
 			let novoItem = {
 
 				nome: this.palavraChavePesquisa,
-				valor: undefined
+				valor: this.palavraChavePesquisa
 
 			}
 

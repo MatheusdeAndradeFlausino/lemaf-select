@@ -1,9 +1,9 @@
 <template>
 	<div id="app">
 		<label><b>Teste:</b></label>
-		<lemaf-select @modificado='recebeSelecionados' v-bind="config"></lemaf-select>
+		<lemaf-select v-model='selecionados' v-bind="config"></lemaf-select>
 		<hr>
-		<span v-for='selecionado in selecionados' :key='selecionado.valor'>{{selecionado.nome}}</span>
+		<span > {{selecionados}} </span>
 	</div>
 </template>
 
@@ -25,15 +25,15 @@ export default {
 
 		return {
 
-			selecionados: [],
+			selecionados: undefined,
 			config: {
 				placeholder: 'Escolha uma opção',
 				pesquisarPlaceholder: 'Pesquisar',
-				filtravel: false,
-				selecionarTodos: false,
+				filtravel: true,
+				selecionarTodos: true,
 				bordaArredondada: true,
-				permitirNovosItens: false,
-				multiplos: false,
+				permitirNovosItens: true,
+				multiplos: true,
 				altura: 'media',
 				label: 'teste',
 				opcoes: [
@@ -79,12 +79,6 @@ export default {
 	},
 
 	methods: {
-
-		recebeSelecionados(selecionados) {
-
-			this.selecionados = selecionados;
-
-		}
 
 	}
 

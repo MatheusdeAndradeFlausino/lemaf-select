@@ -1,5 +1,5 @@
 <template>
-	<div id='componente' :style="componenteStyle" v-fechar="{exclude: [], handler: 'onClose'}">
+	<div id='componente' v-fechar="{exclude: [], handler: 'onClose'}">
 		<div class='select'>
 			<i :class="{'fa-angle-down': !open, 'fa-angle-up': open}" class='fa icon' :style='iconStyle' @click='toggleDropDown()'></i>
 			<div :style="inputStyle" @click='toggleDropDown()' class='select-input'>
@@ -18,16 +18,19 @@
 			</div>
 		</div>
 		<div v-if='open'>
-			<div :style="dropdownStyle" class='dropdown-itens'>
+			<div class='dropdown-itens'>
 				<div v-if="filtravel" class='campo-filtro' :style="campoFiltroStyle">
 					<i class="fa fa-search icon" :style='iconPesquisarStyle'></i>
 					<input type='text' :placeholder='pesquisarPlaceholder' v-model="palavraChavePesquisa" :style="campoPesquisarStyle" @keyup="pesquisar()">
 				</div>
-				<div v-if="selecionarTodos && this.multiplos" class='campo-selecionar-todos' :style="campoSelecionarTodosStyle" @click="adicionarTodos()">
+				<div v-if="selecionarTodos && this.multiplos" class='campo-selecionar-todos' @click="adicionarTodos()">
 					<span>Selecionar todos ({{opcoesExibidas.length}})</span>
 				</div>
 				<div class='itens' v-if='opcoesExibidas.length > 0'>
 					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="item in opcoesExibidas" @click="selecionar(item)">{{item.nome}}</div>
+				</div>
+				<div v-if='opcoesExibidas.length === 0' class='bloco-adicionar' :class='{"separa-blocos": opcoesExibidas.length > 0}'>
+					<span>Lista vazia!</span>
 				</div>
 				<div class='bloco-adicionar' :class='{"separa-blocos": opcoesExibidas.length > 0}' v-if='permitirNovosItens && palavraChavePesquisa.length > 0'>
 					<span>Gostaria de adicionar o filtro informado?</span><br>
@@ -45,6 +48,8 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
 #componente
+
+	width: 100%;
 
 	.select
 		position: relative;
@@ -196,6 +201,7 @@
 
 		.campo-selecionar-todos
 			border-bottom: 1px solid #ccc;
+			line-height: 50px;
 
 			span
 				margin: 5px 0;
