@@ -30,6 +30,7 @@ export default {
 				placeholder: 'Escolha uma opção',
 				pesquisarPlaceholder: 'Pesquisar',
 				filtravel: true,
+				erro: true,
 				selecionarTodos: true,
 				bordaArredondada: true,
 				permitirNovosItens: true,

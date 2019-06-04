@@ -2,7 +2,7 @@
 	<div id='componente' v-fechar="{exclude: [], handler: 'onClose'}">
 		<div class='select'>
 			<i :class="{'fa-angle-down': !open, 'fa-angle-up': open}" class='fa icon' :style='iconStyle' @click='toggleDropDown()'></i>
-			<div :style="inputStyle" @click='toggleDropDown()' class='select-input'>
+			<div :style="inputStyle" @click='toggleDropDown()' class='select-input' :class='{erro: erro}'>
 				<div v-if='selecionados.length === 0' class='placeholder'>
 					<span>{{placeholder}}</span>
 				</div>
@@ -27,7 +27,7 @@
 					<span>Selecionar todos ({{opcoesExibidas.length}})</span>
 				</div>
 				<div class='itens' v-if='opcoesExibidas.length > 0'>
-					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="item in opcoesExibidas" @click="selecionar(item)">{{item.nome}}</div>
+					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="item in opcoesExibidas" @click="adicionar(item)">{{item.nome}}</div>
 				</div>
 				<div v-if='opcoesExibidas.length === 0' class='bloco-adicionar' :class='{"separa-blocos": opcoesExibidas.length > 0}'>
 					<span>Lista vazia!</span>
@@ -54,6 +54,9 @@
 	.select
 		position: relative;
 		width: 100%;
+
+		.erro
+			border: 1px solid red !important
 
 		.select-input
 			width: 100%;

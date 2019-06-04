@@ -7,28 +7,35 @@ Componente Vue para seleção de intervalos de datas.
 - Importar o componente `import LemafSelect from 'lemaf-vue-select'`
 - Importar o css `import 'lemaf-vue-select/dist/lemaf-vue-select.css'`
 
-- Incluir o componente: `<lemaf-range-picker @selected="onRangeSelected" v-bind="config"></lemaf-range-picker>`
+- Incluir o componente: `<lemaf-vue-select v-model='selectProperty'></lemaf-vue-select>`
 
-## Evento
+# Evento
 
-O evento `select` retorna um objeto com os atributos `inicio` e `fim`, cada um deles com uma instância `Date` equivalente ao intervalo selecionado. Exemplo:
+Caso você tenha necessidade de escutar algum evento de mudança do componente, basta escutar o evento input do v-model;
 
-```
-range{
-	inicio: Wed Jan 01 2014 00:00:00 GMT-0200 (-02),
-	fim: Mon Dec 31 2018 00:00:00 GMT-0200 (-02)
-}
-```
+**Exemplo:**
+`<lemaf-vue-select @input='doSomething'></lemaf-vue-select>`
+
 ## Configurações do componente
 
-É possível modificar alguns parâmetros do componente, como cores e ano inicial dos intervalos através do parâmetro `config`. Exemplo:
+É possível modificar alguns parâmetros do componente. A seguir tabela das propiedades disponíveis do componente.
 
-```
-config: {
-	anoInicial: 1992,
-	styles: {
-		baseColor: '#FFA726',
-		overColor: 'white'
-	}
-}
-```
+|Propriedade          | Tipo    | Default   | Valores Aceitos           | Descrição |
+---------------------|---------|-----------|---------------------------|------------|
+|erro                 | Boolean | false     | -                         | Serve para indicar se deve renderizar um borda vermelha para indicar campo com erro. |
+|label                | String  | nome      | -                         | Indica o nome da variável do objeto `opcoes` que possui os nomes que serão renderizados no select para cada uma das opções |
+|chave                | String  | valor     | -                         | Indica o nome da variável do objeto `opcoes` que contém o valor de cada uma das opções |
+|filtravel            | Boolean | false     | -                         | |
+|selecionarTodos      | Boolean | false     | -                         | |
+|pesquisarPlaceholder | String  | Pesquisar | -                         | |
+|bordaArredondada     | Boolean | false     | -                         | |
+|multiplos            | Boolean | false     | -                         | |
+|permitirNovosItens   | Boolean | false     | -                         | |
+|placeholder          | String  | Selecione | -                         | |
+|altura               | String  | media     | pequena / media / grande  | |
+|opcoes               | Array   | []        | -                         | |
+
+##Funcionamento
+
+Se o atributo da variavel for setado como *undefined* ou *null* o componente
+

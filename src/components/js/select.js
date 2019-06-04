@@ -35,6 +35,10 @@ export default {
 			type: [Object, Array, Number, String],
 			default: undefined
 		},
+		erro: {
+			type: Boolean,
+			default: false
+		},
 		label: {
 			type: String,
 			default: 'nome'
@@ -100,6 +104,9 @@ export default {
 
 			handler: function(novasOpcoes){
 
+				this.opcoesExibidas = [];
+				this.opcoesTransformadas = [];
+
 				novasOpcoes.forEach(opcao => {
 
 					let itemTransformado = {
@@ -112,6 +119,35 @@ export default {
 				});
 
 				this.opcoesExibidas = this.opcoesTransformadas
+
+			}
+
+		},
+
+		value: {
+
+			deep: true,
+			immediate: true,
+			handler: function(novosValores) {
+
+				if(novosValores) {
+
+					let valoresQueDevemSerSelecionados = [];
+
+					typeof novosValores === 'object' ? valoresQueDevemSerSelecionados = [...novosValores] : valoresQueDevemSerSelecionados.push(novosValores);
+
+					valoresQueDevemSerSelecionados.forEach(novoValor => {
+
+						let itemNasOpcoes = this.opcoesTransformadas.filter(opcaoTransformada => opcaoTransformada.valor === novoValor);
+						this.selecionar(itemNasOpcoes.pop());
+
+					});
+
+				} else {
+
+					this.selecionados = [];
+
+				}
 
 			}
 
@@ -230,8 +266,6 @@ export default {
 
 			}
 
-			this.emitirResultado();
-
 		},
 
 		emitirResultado() {
@@ -248,9 +282,17 @@ export default {
 
 		},
 
+		adicionar(item) {
+
+			this.selecionar(item);
+			this.emitirResultado();
+
+		},
+
 		adicionarTodos() {
 
 			this.opcoesExibidas.forEach(opcao => this.selecionar(opcao));
+			this.emitirResultado();
 
 		},
 

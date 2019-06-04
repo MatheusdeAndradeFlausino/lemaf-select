@@ -1,6 +1,6 @@
 {
   "name": "lemaf-vue-select",
-  "version": "1.1.6",
+  "version": "1.1.13",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
