@@ -37,5 +37,10 @@ Caso você tenha necessidade de escutar algum evento de mudança do componente, 
 
 # Funcionamento
 
-Se o atributo da variavel for setado como *undefined* ou *null* o componente
+Se o atributo da diretiva `v-model` for setado como *undefined* ou *null* o componente inicializará sem nenhum item selecionado, porém
+qualquer outro valor informado na variável `v-model` o componente tentará encontrar dentro das `opcoes` fornecidas, alguma opção que tenha o atributo
+`chave` igual ao valor de `v-model`.
+
+**Observação**: Observe que quando a opção múltiplos está habilitada faz sentido usar `v-model` como um Array. Neste caso, o componente tentará encontrar
+uma opção correspondente para cada um dos valores do Array de `v-model`.
 
