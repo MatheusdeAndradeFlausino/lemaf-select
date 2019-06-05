@@ -2,6 +2,7 @@
 	<div id="app">
 		<label><b>Teste:</b></label>
 		<lemaf-select v-model='selecionados' v-bind="config"></lemaf-select>
+		<div>BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA</div>
 		<hr>
 		<span > {{selecionados}} </span>
 	</div>

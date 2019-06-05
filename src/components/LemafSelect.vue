@@ -17,7 +17,7 @@
 				</div>
 			</div>
 		</div>
-		<div v-if='open'>
+		<div v-if='open' class='dropdown-container'>
 			<div class='dropdown-itens'>
 				<div v-if="filtravel" class='campo-filtro' :style="campoFiltroStyle">
 					<i class="fa fa-search icon" :style='iconPesquisarStyle'></i>
@@ -50,6 +50,7 @@
 #componente
 
 	width: 100%;
+	position: relative;
 
 	.select
 		position: relative;
@@ -116,103 +117,109 @@
 			&:hover
 				cursor: pointer
 
-	.dropdown-itens
-		border: 1px solid #ccc
-		text-align: left;
-		color: #35495e
-		border-radius: 5px;
-		margin-top: 2px;
-		overflow: hidden;
-		box-shadow: 3px 3px #f5f5f7;
+	.dropdown-container
+		background-color: white;
+		width: 100%;
+		z-index: 1234567890
+		position: absolute;
 
-		.bloco-adicionar
-			text-align: center;
-			padding: 10px 0;
-
-			.adicionar
-				background-color: #41b883;
-				border-radius: 10px;
-				border: none;
-				padding: 10px;
-				color: white;
-				margin-top: 5px;
-
-				&:hover
-					cursor: pointer
-
-				i
-					color: inherit
-
-		.separa-blocos
-			border-top: 1px solid #ccc;
-
-		.itens
-			height: auto;
-			max-height: 300px;
-			overflow-y: auto;
-			overflow-x: auto;
-
-			&::-webkit-scrollbar
-				width: 4px;
-				height: 6px;
-
-			&::-webkit-scrollbar-track
-				background-color: #f5f5f5;
-				border-radius: 10px;
-
-			&::-webkit-scrollbar-thumb
-				border-radius: 10px;
-				background-color: #708090;
-
-		.item
-
-			margin: 1px 0
-			line-height: 50px;
+		.dropdown-itens
+			border: 1px solid #ccc
 			text-align: left;
-			white-space: nowrap;
-			padding: 0 20px;
+			color: #35495e
+			border-radius: 5px;
+			margin-top: 2px;
+			overflow: hidden;
+			box-shadow: 3px 3px #f5f5f7;
 
-			&:hover
-				background-color: #41b883;
-				color: white;
-				cursor: pointer;
-
-		.selecionado:hover
-			background-color: #FF0040 !important
-
-		.campo-filtro
-			border-bottom: 1px solid #ccc;
-			position: relative;
-
-			.icon
-				position: absolute
-				right: 10px;
-				width: 15px;
-				height: 15px;
+			.bloco-adicionar
 				text-align: center;
+				padding: 10px 0;
 
-			input
-				width: calc(100% - 20px);
-				margin: 5px 0 5px 5px;
-				box-shadow: none;
+				.adicionar
+					background-color: #41b883;
+					border-radius: 10px;
+					border: none;
+					padding: 10px;
+					color: white;
+					margin-top: 5px;
+
+					&:hover
+						cursor: pointer
+
+					i
+						color: inherit
+
+			.separa-blocos
+				border-top: 1px solid #ccc;
+
+			.itens
+				height: auto;
+				max-height: 300px;
+				overflow-y: auto;
+				overflow-x: auto;
+
+				&::-webkit-scrollbar
+					width: 4px;
+					height: 6px;
+
+				&::-webkit-scrollbar-track
+					background-color: #f5f5f5;
+					border-radius: 10px;
+
+				&::-webkit-scrollbar-thumb
+					border-radius: 10px;
+					background-color: #708090;
+
+			.item
+
+				margin: 1px 0
+				line-height: 50px;
 				text-align: left;
-				border: 1px solid #ccc;
-				padding: 3px 0 3px 10px;
-
-				&:focus
-					outline: none;
-
-		.campo-selecionar-todos
-			border-bottom: 1px solid #ccc;
-			line-height: 50px;
-
-			span
-				margin: 5px 0;
+				white-space: nowrap;
 				padding: 0 20px;
 
-			&:hover
-				background-color: #41b883;
-				color: white;
-				cursor: pointer;
+				&:hover
+					background-color: #41b883;
+					color: white;
+					cursor: pointer;
+
+			.selecionado:hover
+				background-color: #FF0040 !important
+
+			.campo-filtro
+				border-bottom: 1px solid #ccc;
+				position: relative;
+
+				.icon
+					position: absolute
+					right: 10px;
+					width: 15px;
+					height: 15px;
+					text-align: center;
+
+				input
+					width: calc(100% - 20px);
+					margin: 5px 0 5px 5px;
+					box-shadow: none;
+					text-align: left;
+					border: 1px solid #ccc;
+					padding: 3px 0 3px 10px;
+
+					&:focus
+						outline: none;
+
+			.campo-selecionar-todos
+				border-bottom: 1px solid #ccc;
+				line-height: 50px;
+
+				span
+					margin: 5px 0;
+					padding: 0 20px;
+
+				&:hover
+					background-color: #41b883;
+					color: white;
+					cursor: pointer;
 
 </style>
