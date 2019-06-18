@@ -11,10 +11,17 @@ Componente Vue para seleção de intervalos de datas.
 
 # Evento
 
-Caso você tenha necessidade de escutar algum evento de mudança do componente, basta escutar o evento input do v-model;
+**Input**
+Caso você tenha necessidade de escutar algum evento de mudança no(s) item(ns) selecionados, basta escutar o evento input do v-model;
 
 **Exemplo:**
 `<lemaf-vue-select @input='doSomething'></lemaf-vue-select>`
+
+**Clicked**
+Emitido quando é clicado em qualquer parte do componente.
+
+**Exemplo:**
+`<lemaf-vue-select @clicked='doSomething'></lemaf-vue-select>`
 
 # Configurações do componente
 
@@ -33,6 +40,7 @@ Caso você tenha necessidade de escutar algum evento de mudança do componente, 
 |permitirNovosItens   | Boolean | false     | -                         | Se **true** exibirá um botão |
 |placeholder          | String  | Selecione | -                         | Placeholder para o campo de select. |
 |altura               | String  | media     | pequena / media / grande  | Define a altura do input do select. (20 /30 / 40)px respectivamente. |
+|podeRemoverItem      | Boolean | true      | -                         | Permiti remover itens quando a seleção múltipla não estiver habilitada(seleção única) |
 |opcoes               | Array   | []        | -                         | Array com as opções que populará o select. |
 
 # Funcionamento
@@ -43,4 +51,3 @@ qualquer outro valor informado na variável `v-model` o componente tentará enco
 
 **Observação**: Observe que quando a opção `múltiplos` está habilitada faz sentido usar `v-model` como um Array. Neste caso, o componente tentará encontrar
 uma opção correspondente para cada um dos valores do Array de `v-model`.
-

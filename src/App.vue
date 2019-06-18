@@ -1,8 +1,8 @@
 <template>
 	<div id="app">
 		<label><b>Teste:</b></label>
-		<lemaf-select v-model='selecionados' v-bind="config"></lemaf-select>
-		<div>BLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLABLA</div>
+		<lemaf-select v-model='selecionados' v-bind="config" @clicked="clicks++"></lemaf-select>
+		<div>clicks: {{clicks}} </div>
 		<hr>
 		<span > {{selecionados}} </span>
 	</div>
@@ -27,6 +27,7 @@ export default {
 		return {
 
 			selecionados: undefined,
+			clicks: 0,
 			config: {
 				placeholder: 'Escolha uma opção',
 				pesquisarPlaceholder: 'Pesquisar',
@@ -38,6 +39,7 @@ export default {
 				multiplos: true,
 				altura: 'media',
 				label: 'teste',
+				fontFamily: 'Titilium Web Regular',
 				opcoes: [
 					{
 						teste: 'Override teste 1',
@@ -87,3 +89,15 @@ export default {
 }
 
 </script>
+<style>
+
+	html, body {
+		height: 100%;
+	}
+
+	#app{
+		color: red;
+		height: 100%;
+	}
+
+</style>

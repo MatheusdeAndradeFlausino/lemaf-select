@@ -91,6 +91,14 @@ export default {
 		opcoes: {
 			type: Array,
 			default: () => []
+		},
+		podeRemoverItem: {
+			type: Boolean,
+			default: true
+		},
+		fontFamily: {
+			type: String,
+			default: ''
 		}
 
 	},
@@ -181,6 +189,9 @@ export default {
 				height: referenciaAltura[this.altura] + 'px',
 				lineHeight: referenciaAltura[this.altura] + 'px'
 			},
+			componenteStyle: {
+				fontFamily: this.fontFamily
+			},
 			opcoesExibidas: [],
 			open: false,
 			palavraChavePesquisa: '',
@@ -242,6 +253,11 @@ export default {
 		toggleDropDown() {
 
 			this.open = !this.open;
+			let grausGiro = this.open ? 180 : 0.
+
+			let transform = `rotate(${grausGiro}deg)`;
+
+			this.iconStyle.transform = transform;
 
 		},
 
@@ -272,7 +288,9 @@ export default {
 
 			if(!this.multiplos) {
 
-				this.$emit('input', this.selecionados[0].valor)
+				let valorEmit = this.selecionados[0] ? this.selecionados[0].valor : undefined;
+
+				this.$emit('input', valorEmit)
 
 			} else {
 
@@ -302,7 +320,21 @@ export default {
 
 		},
 
-		removerItem(event, index) {
+		resolverItem(event, item) {
+
+			if(this.itemJaSelecionado(item) && this.podeRemoverItem){
+
+				this.removerItem(event, item)
+
+			} else if(!this.itemJaSelecionado(item)) {
+
+				this.adicionar(item);
+
+			}
+
+		},
+
+		removerItem(event = null, item) {
 
 			if(!event) {
 
@@ -318,7 +350,16 @@ export default {
 
 			}
 
-			this.selecionados.splice(index, 1);
+			for(let index = 0; index < this.selecionados.length; index++) {
+
+				if(this.selecionados[index].valor === item.valor) {
+
+					this.selecionados.splice(index, 1);
+					break;
+
+				}
+
+			}
 
 			this.emitirResultado();
 
@@ -334,6 +375,12 @@ export default {
 			}
 
 			this.selecionar(novoItem);
+
+		},
+
+		emitirClick($event) {
+
+			this.$emit('clicked', $event)
 
 		},
 

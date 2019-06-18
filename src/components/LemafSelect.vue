@@ -1,7 +1,7 @@
 <template>
-	<div id='componente' v-fechar="{exclude: [], handler: 'onClose'}">
+	<div id='componente' v-fechar="{exclude: [], handler: 'onClose'}" @click='emitirClick($event)' :style='componenteStyle'>
 		<div class='select'>
-			<i :class="{'fa-angle-down': !open, 'fa-angle-up': open}" class='fa icon' :style='iconStyle' @click='toggleDropDown()'></i>
+			<i class='fa fa-angle-down icon' :style='iconStyle' @click='toggleDropDown()'></i>
 			<div :style="inputStyle" @click='toggleDropDown()' class='select-input' :class='{erro: erro}'>
 				<div v-if='selecionados.length === 0' class='placeholder'>
 					<span>{{placeholder}}</span>
@@ -10,9 +10,9 @@
 					<span>{{selecionados[0].nome}}</span>
 				</div>
 				<div class='linha-chips' v-if='multiplos'>
-					<span class='selecionado-chips' :key='selecionado.valor' v-for="(selecionado, index) in selecionados" :style='selecionadoChipsStyle'>
+					<span class='selecionado-chips' :key='selecionado.valor' v-for="selecionado in selecionados" :style='selecionadoChipsStyle'>
 						{{selecionado.nome}}
-						<i class='fa fa-times' @click='removerItem($event, index)'></i>
+						<i class='fa fa-times' @click='removerItem($event, selecionado)'></i>
 					</span>
 				</div>
 			</div>
@@ -27,7 +27,7 @@
 					<span>Selecionar todos ({{opcoesExibidas.length}})</span>
 				</div>
 				<div class='itens' v-if='opcoesExibidas.length > 0'>
-					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="item in opcoesExibidas" @click="adicionar(item)">{{item.nome}}</div>
+					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="(item, index) in opcoesExibidas" @click="resolverItem($event, item, index)">{{item.nome}}</div>
 				</div>
 				<div v-if='opcoesExibidas.length === 0' class='bloco-adicionar' :class='{"separa-blocos": opcoesExibidas.length > 0}'>
 					<span>Lista vazia!</span>
@@ -51,6 +51,9 @@
 
 	width: 100%;
 	position: relative;
+	background-color: white;
+	font-family: inherit;
+	color: #6D6F71;
 
 	.select
 		position: relative;
@@ -72,7 +75,7 @@
 				padding-left: 10px;
 
 			.bloco-selecionado-unico
-				padding-left: 10px;
+				padding-left: 15px;
 
 			.linha-chips
 				width: calc(100% - 20px);
@@ -113,6 +116,10 @@
 			border: 1px solid #ccc;
 			border-radius: 50%;
 			text-align: center;
+			-moz-transition: all 1s ease;
+			-webkit-transition: all 1s ease;
+			-o-transition: all 1s ease;
+			transition: all 1s ease;
 
 			&:hover
 				cursor: pointer
@@ -126,7 +133,6 @@
 		.dropdown-itens
 			border: 1px solid #ccc
 			text-align: left;
-			color: #35495e
 			border-radius: 5px;
 			margin-top: 2px;
 			overflow: hidden;
