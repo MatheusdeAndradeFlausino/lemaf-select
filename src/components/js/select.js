@@ -196,7 +196,9 @@ export default {
 			open: false,
 			palavraChavePesquisa: '',
 			selecionados: [],
-			opcoesTransformadas: []
+			opcoesTransformadas: [],
+			ativarClasseHoverComMouseNasOpcoes: true,
+			opcaoEscolhidaComSetasTeclado: -1
 		}
 
 	},
@@ -387,6 +389,44 @@ export default {
 		onClose() {
 
 			this.open = false;
+
+		},
+
+		navegarOuEscolherOpcoes(event) {
+
+			switch(event.keyCode) {
+
+				case 40:
+					this.opcaoEscolhidaComSetasTeclado < this.opcoesExibidas.length - 1 ? this.opcaoEscolhidaComSetasTeclado++ :  this.opcaoEscolhidaComSetasTeclado;
+					this.focusItem(this.opcaoEscolhidaComSetasTeclado);
+					break;
+				case 38:
+					this.opcaoEscolhidaComSetasTeclado > -1 ? this.opcaoEscolhidaComSetasTeclado-- :  this.opcaoEscolhidaComSetasTeclado;
+					this.focusItem(this.opcaoEscolhidaComSetasTeclado);
+					break;
+				case 13:
+					this.escolherOpcaoComBotaoEnter(event);
+					break;
+
+			}
+
+		},
+
+		focusItem(index) {
+
+			let itemName = 'item-' + index;
+			let offsetTop = this.$refs[itemName][0].offsetTop;
+			this.$refs.itens.scrollTop = offsetTop;
+
+		},
+
+		escolherOpcaoComBotaoEnter(event) {
+
+			if(this.opcaoEscolhidaComSetasTeclado > -1) {
+
+				this.resolverItem(event, this.opcoesExibidas[this.opcaoEscolhidaComSetasTeclado], this.opcaoEscolhidaComSetasTeclado);
+
+			}
 
 		}
 

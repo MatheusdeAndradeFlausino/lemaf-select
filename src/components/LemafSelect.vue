@@ -1,5 +1,5 @@
 <template>
-	<div id='componente' v-fechar="{exclude: [], handler: 'onClose'}" @click='emitirClick($event)' :style='componenteStyle'>
+	<div id='componente' v-fechar="{exclude: [], handler: 'onClose'}" @click='emitirClick($event)' @keyup='navegarOuEscolherOpcoes($event)' :style='componenteStyle' tabindex='0'>
 		<div class='select'>
 			<i class='fa fa-angle-down icon' :style='iconStyle' @click='toggleDropDown()'></i>
 			<div :style="inputStyle" @click='toggleDropDown()' class='select-input' :class='{erro: erro}'>
@@ -21,13 +21,20 @@
 			<div class='dropdown-itens'>
 				<div v-if="filtravel" class='campo-filtro' :style="campoFiltroStyle">
 					<i class="fa fa-search icon" :style='iconPesquisarStyle'></i>
-					<input type='text' :placeholder='pesquisarPlaceholder' v-model="palavraChavePesquisa" :style="campoPesquisarStyle" @keyup="pesquisar()">
+					<input type='text' ref='pesquisar' :placeholder='pesquisarPlaceholder' v-model="palavraChavePesquisa" :style="campoPesquisarStyle" @keyup="pesquisar()">
 				</div>
 				<div v-if="selecionarTodos && this.multiplos" class='campo-selecionar-todos' @click="adicionarTodos()">
 					<span>Selecionar todos ({{opcoesExibidas.length}})</span>
 				</div>
-				<div class='itens' v-if='opcoesExibidas.length > 0'>
-					<div class='item' :class='{selecionado: itemJaSelecionado(item)}' :key='item.value' v-for="(item, index) in opcoesExibidas" @click="resolverItem($event, item, index)">{{item.nome}}</div>
+				<div class='itens' v-if='opcoesExibidas.length > 0' ref='itens'>
+					<div class='item' :class='{jaSelecionado: itemJaSelecionado(item), emSelecao: index === opcaoEscolhidaComSetasTeclado}'
+							:key='item.value'
+							v-for="(item, index) in opcoesExibidas"
+							@mouseenter="opcaoEscolhidaComSetasTeclado = index;"
+							:ref='"item-" + index'
+							@click="resolverItem($event, item, index)">
+						{{item.nome}}
+					</div>
 				</div>
 				<div v-if='opcoesExibidas.length === 0' class='bloco-adicionar' :class='{"separa-blocos": opcoesExibidas.length > 0}'>
 					<span>Lista vazia!</span>
@@ -54,6 +61,7 @@
 	background-color: white;
 	font-family: inherit;
 	color: #6D6F71;
+	outline: none;
 
 	.select
 		position: relative;
@@ -86,7 +94,7 @@
 					border-radius: 20px;
 					font-size: 13px;
 					display: inline-block;
-					margin-left: 4px;
+					margin: 3px 0 0 4px;
 					white-space: text-wrap;
 					width: auto;
 					padding: 0 10px;
@@ -185,12 +193,12 @@
 				white-space: nowrap;
 				padding: 0 20px;
 
-				&:hover
-					background-color: #41b883;
-					color: white;
-					cursor: pointer;
+			.item.emSelecao
+				background-color: #41b883;
+				color: white;
+				cursor: pointer;
 
-			.selecionado:hover
+			.jaSelecionado.emSelecao
 				background-color: #FF0040 !important
 
 			.campo-filtro

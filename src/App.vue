@@ -1,5 +1,6 @@
 <template>
 	<div id="app">
+		<div class="container"></div>
 		<label><b>Teste:</b></label>
 		<lemaf-select v-model='selecionados' v-bind="config" @clicked="clicks++"></lemaf-select>
 		<div>clicks: {{clicks}} </div>
@@ -32,7 +33,7 @@ export default {
 				placeholder: 'Escolha uma opção',
 				pesquisarPlaceholder: 'Pesquisar',
 				filtravel: true,
-				erro: true,
+				erro: false,
 				selecionarTodos: true,
 				bordaArredondada: true,
 				permitirNovosItens: true,
@@ -98,6 +99,11 @@ export default {
 	#app{
 		color: red;
 		height: 100%;
+	}
+
+	.container{
+		position: relative;
+		height: 400px;;
 	}
 
 </style>
